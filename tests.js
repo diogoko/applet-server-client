@@ -38,7 +38,7 @@ QUnit.test('create (generated name)', makeServerTest(
       assert.equal(applet.code, 'my.sample.Applet', 'code parameter was set');
       assert.ok(applet.name == null, 'no name was specified');
       
-      data.name = 'generated-name';
+      applet.name = 'generated-name';
       request.respond(200, RESPONSE_HEADERS, JSON.stringify(applet));
     });
   }
@@ -145,7 +145,7 @@ QUnit.test('hide', makeServerTest(
     }).then(function(applet) {
       return applet.hide();
     }).then(function(isVisible) {
-      assert.ok(isVisible === true, 'the new visibility was received');
+      assert.ok(isVisible === false, 'the new visibility was received');
       testDone();
     });
   },
@@ -178,7 +178,6 @@ QUnit.test('call method', makeServerTest(
   function(assert, server) {
     server.respondWith('POST', 'http://localhost:9998/applets/test/methods/sum', function(request) {
       var data = JSON.parse(request.requestBody);
-      assert.equal(typeof data.args, 'array', 'the method\'s arguments were sent');
       assert.equal(data.args.length, 2, 'all of the method\'s arguments were sent');
       assert.equal(data.args[0], 10, 'the first argument is correct');
       assert.equal(data.args[1], 5, 'the second argument is correct');
@@ -248,7 +247,7 @@ QUnit.test('destroy applet', makeServerTest(
   
   function(assert, server) {
     server.respondWith('DELETE', 'http://localhost:9998/applets/test', function(request) {
-      var data = JSON.parse(request.requestBody);
+      assert.ok(true, 'the correct request was sent');
       request.respond(204);
     });
   }
