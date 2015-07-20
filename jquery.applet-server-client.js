@@ -40,6 +40,8 @@ Applet.prototype.create = function() {
     {
       applet: {
         code: this.options.code,
+        codeBase: this.options.codeBase,
+        archive: this.options.archive,
         name: this.options.name
       }
     },
@@ -153,11 +155,14 @@ Applet.prototype.destroy = function() {
 };
 
 
+var fillDefaultOptions = function(options) {
+  options.host = options.host || 'http://localhost:9998';
+}
+
 AppletServerClient = {
   
   connect: function(options) {
-    options.host = options.host || 'http://localhost:9998';
-    
+    fillDefaultOptions(options);
     var applet = new Applet(options);
     
     var d = new $.Deferred();
@@ -166,7 +171,14 @@ AppletServerClient = {
   },
   
   start: function(options) {
-    options.host = options.host || 'http://localhost:9998';
+    fillDefaultOptions(options);
+
+    if (!options.code) {
+      throw new Error('Parameter "code" is required');
+    }
+    if (!options.codeBase) {
+      throw new Error('Parameter "codeBase" is required');
+    }
     
     var applet = new Applet(options);
     return applet.create();

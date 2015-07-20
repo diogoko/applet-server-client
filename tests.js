@@ -22,7 +22,9 @@ var RESPONSE_HEADERS = { 'Content-Type': 'application/json' };
 QUnit.test('create (generated name)', makeServerTest(
   function(assert, testDone) {
     AppletServerClient.start({
-      code: 'my.sample.Applet'
+      code: 'my.sample.Applet',
+      codeBase: 'http://www.example.com',
+      archive: 'applet.jar'
     }).then(function(applet) {
       assert.equal(applet.name, 'generated-name', 'the generated name was received');
       testDone();
@@ -36,6 +38,8 @@ QUnit.test('create (generated name)', makeServerTest(
       var applet = data.applet;
       assert.ok(applet != null, 'applet info was sent');
       assert.equal(applet.code, 'my.sample.Applet', 'code parameter was set');
+      assert.equal(applet.codeBase, 'http://www.example.com', 'codeBase parameter was set');
+      assert.equal(applet.archive, 'applet.jar', 'archive parameter was set');
       assert.ok(applet.name == null, 'no name was specified');
       
       applet.name = 'generated-name';
@@ -49,6 +53,8 @@ QUnit.test('create (specified name)', makeServerTest(
   function(assert, testDone) {
     AppletServerClient.start({
       code: 'my.sample.Applet',
+      codeBase: 'http://www.example.com',
+      archive: 'applet.jar',
       name: 'test'
     }).then(function(applet) {
       testDone();
@@ -62,12 +68,34 @@ QUnit.test('create (specified name)', makeServerTest(
       var applet = data.applet;
       assert.ok(applet != null, 'applet info was sent');
       assert.equal(applet.code, 'my.sample.Applet', 'code parameter was set');
+      assert.equal(applet.codeBase, 'http://www.example.com', 'codeBase parameter was set');
+      assert.equal(applet.archive, 'applet.jar', 'archive parameter was set');
       assert.equal(applet.name, 'test', 'the correct name was specified');
       
       request.respond(200, RESPONSE_HEADERS, JSON.stringify(applet));
     });
   }
 ));
+
+
+QUnit.test('create (missing required code)', function(assert) {
+  assert.throws(function() {
+    AppletServerClient.start({
+      codeBase: 'http://www.example.com',
+      name: 'test'
+    });
+  }, 'error on missing code parameter');
+});
+
+
+QUnit.test('create (missing required codeBase)', function(assert) {
+  assert.throws(function() {
+    AppletServerClient.start({
+      code: 'my.sample.Applet',
+      name: 'test'
+    });
+  }, 'error on missing codeBase parameter');
+});
 
 
 QUnit.test('check visibility', makeServerTest(
