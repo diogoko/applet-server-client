@@ -43,7 +43,9 @@ Applet.prototype.create = function() {
         codeBase: this.options.codeBase,
         archive: this.options.archive,
         name: this.options.name
-      }
+      },
+      
+      show: this.options.show
     },
     function(data) {
       return data;
@@ -157,6 +159,7 @@ Applet.prototype.destroy = function() {
 
 var fillDefaultOptions = function(options) {
   options.host = options.host || 'http://localhost:9998';
+  options.show = (options.show === undefined) ? true : options.show;
 }
 
 AppletServerClient = {

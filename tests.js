@@ -24,7 +24,8 @@ QUnit.test('create (generated name)', makeServerTest(
     AppletServerClient.start({
       code: 'my.sample.Applet',
       codeBase: 'http://www.example.com',
-      archive: 'applet.jar'
+      archive: 'applet.jar',
+      show: false
     }).then(function(applet) {
       assert.equal(applet.name, 'generated-name', 'the generated name was received');
       testDone();
@@ -34,6 +35,7 @@ QUnit.test('create (generated name)', makeServerTest(
   function(assert, server) {
     server.respondWith('POST', 'http://localhost:9998/applets', function(request) {
       var data = JSON.parse(request.requestBody);
+      assert.ok(data.show === false, 'custom show parameter was sent');
       
       var applet = data.applet;
       assert.ok(applet != null, 'applet info was sent');
@@ -64,6 +66,7 @@ QUnit.test('create (specified name)', makeServerTest(
   function(assert, server) {
     server.respondWith('POST', 'http://localhost:9998/applets', function(request) {
       var data = JSON.parse(request.requestBody);
+      assert.ok(data.show === true, 'default show parameter was sent');
       
       var applet = data.applet;
       assert.ok(applet != null, 'applet info was sent');
