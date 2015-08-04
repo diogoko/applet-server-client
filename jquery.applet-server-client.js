@@ -34,6 +34,8 @@ Applet.prototype._sendRequest = function(method, path, requestData, handleRespon
 };
 
 Applet.prototype.create = function() {
+  var _thisApplet = this;
+  
   return this._sendRequest(
     'POST',
     this._buildUrl(),
@@ -48,7 +50,8 @@ Applet.prototype.create = function() {
       show: this.options.show
     },
     function(data) {
-      return data;
+      _thisApplet.options.name = data.name;
+      return _thisApplet;
     }
   );
 };

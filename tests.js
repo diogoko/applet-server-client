@@ -27,7 +27,9 @@ QUnit.test('create (generated name)', makeServerTest(
       archive: 'applet.jar',
       show: false
     }).then(function(applet) {
-      assert.equal(applet.name, 'generated-name', 'the generated name was received');
+      assert.equal(applet.options.name, 'generated-name', 'the generated name was received');
+      assert.equal(typeof applet.visible, 'function', 'the object is the connection to the applet');
+      
       testDone();
     });
   },
@@ -59,6 +61,9 @@ QUnit.test('create (specified name)', makeServerTest(
       archive: 'applet.jar',
       name: 'test'
     }).then(function(applet) {
+      assert.equal(applet.options.name, 'test', 'the specified name was kept');
+      assert.equal(typeof applet.visible, 'function', 'the object is the connection to the applet');
+      
       testDone();
     });
   },
