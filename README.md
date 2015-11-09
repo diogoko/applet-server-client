@@ -16,7 +16,7 @@ The main entry point of applet-server-client is the `AppletServerClient` object.
 This example starts and shows the [Java Tutorial's Hello World applet](https://docs.oracle.com/javase/tutorial/deployment/applet/getStarted.html):
 
 ```javascript
-AppletServerClient.create({
+AppletServerClient.start({
   code: 'HelloWorld.class',
   archive: 'examples/dist/applet_HelloWorld/applet_HelloWorld.jar',
   codeBase: 'https://docs.oracle.com/javase/tutorial/deployment/applet'
