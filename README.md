@@ -13,6 +13,16 @@ Include the jQuery library before including `jquery.applet-server-client.js` in 
 
 The main entry point of applet-server-client is the `AppletServerClient` object. All of its methods return promises, as do some of the objects these methods return (as described below). In case of errors, the method's promise will reject with `(jqXHR jqXHR, String textStatus, String errorThrown)` as returned by [jQuery.ajax()](http://api.jquery.com/jQuery.ajax/).
 
+This example starts and shows the [Java Tutorial's Hello World applet](https://docs.oracle.com/javase/tutorial/deployment/applet/getStarted.html):
+
+```javascript
+AppletServerClient.create({
+  code: 'HelloWorld.class',
+  archive: 'examples/dist/applet_HelloWorld/applet_HelloWorld.jar',
+  codeBase: 'https://docs.oracle.com/javase/tutorial/deployment/applet'
+});
+```
+
 ## AppletServerClient
 
 ### start(AppletOptions options) &rarr; Promise(Applet applet)
