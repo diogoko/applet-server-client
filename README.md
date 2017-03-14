@@ -19,7 +19,7 @@ This example starts and shows the [Java Tutorial's Hello World applet](https://d
 AppletServerClient.start({
   code: 'HelloWorld.class',
   archive: 'examples/dist/applet_HelloWorld/applet_HelloWorld.jar',
-  codeBase: 'https://docs.oracle.com/javase/tutorial/deployment/applet'
+  codeBase: 'https://docs.oracle.com/javase/tutorial/deployment/applet/'
 });
 ```
 
@@ -42,7 +42,7 @@ An object describing the applet and how it should be started. Fields with defaul
 | Field    | Type    | Default     | Description                                                                                                                               |
 |----------|---------|-------------|-------------------------------------------------------------------------------------------------------------------------------------------|
 | name     | string  | (generated) | The name that will identify the applet. If no name is specified, a unique name will be generated.                                         |
-| codeBase | string  |             | The root URL from where `code` and `archive` will be downloaded                                                                           |
+| codeBase | string  |             | The root URL from where `code` and `archive` will be downloaded (*always ending in `/`*)                                                                          |
 | code     | string  |             | The main class of the applet. A suffix of `.class` will be ignored. Paths are relative to the `codeBase` parameter.                       |
 | archive  | string  | null        | The comma-separated list of JAR files that contain the applet's classes and dependencies. Paths are relative to the `codeBase` parameter. |
 | show     | boolean | true        | Indicates if the applet will be shown when started                                                                                        |
