@@ -71,7 +71,7 @@ Tells the local applet-server to show the applet in a desktop window if it's cur
 
 Tells the local applet-server to hide the applet in a desktop window if it's currently visible. The promise returns the new visibility of the applet.
 
-### callMethod(String methodName, Array args) &rarr; Promise(MethodResult resultOrError)
+### callMethod(String methodName, ...args) &rarr; Promise(MethodResult resultOrError)
 
 Requests the local applet-server to call a public method provided in the applet's class. The applet must be in the state STARTED. Only instance methods are allowed.
 
